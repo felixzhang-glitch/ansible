@@ -1,0 +1,13 @@
+- name: manage dodpPipelineWorker service
+hosts: dodpPipelineWorker
+vars_prompt:
+    - name: service_action
+    prompt: "Enter action to perform (status/start/stop/restart)"
+    private: no
+    tasks:
+        - name: perform action on dodpPipelineWorker
+        command: / data/app/dodpPipelineWorker/bin/dodpPipelineWorker {{service_action}}
+        register: output
+        - name: display output
+        debug:
+            var: output.stdout_lines
